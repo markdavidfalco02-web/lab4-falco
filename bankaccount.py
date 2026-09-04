@@ -5,23 +5,39 @@ class BankAccount:
 
     def deposit(self, amount):
         self.balance += amount
-        print(self.name, "deposited", amount)
-        print("Updated Balance:", self.balance)
+        print(f"Deposited {amount}. Updated balance: {self.balance}")
 
     def describe(self):
-        print(self.name, "- Balance:", self.balance)
+        print(f"Account Holder: {self.name}, Balance: {self.balance}")
+
 
 
 class SavingsAccount(BankAccount):
     def __init__(self, name, balance, interest_rate):
+        # Reuse parent class constructor
         super().__init__(name, balance)
         self.interest_rate = interest_rate
 
     def deposit(self, amount):
+        # Extend parent's deposit() method instead of replacing it
         super().deposit(amount)
-        print(self.name, "has an interest rate of", self.interest_rate, "%.")
+        print(f"Account interest rate: {self.interest_rate}%")
 
-account = SavingsAccount("Maria", 10000, 3)
-account.deposit(2000)
-account.describe()
-print(isinstance(account, BankAccount))
+
+
+savings = SavingsAccount("Maria", 10000, 3)
+
+
+print("--- Calling deposit() ---")
+savings.deposit(500)  # Deposit an example amount
+
+
+print("\n--- Calling describe() ---")
+savings.describe()
+
+
+print("\n--- Instance Check ---")
+is_bank_account = isinstance(savings, BankAccount)
+print(f"Is this SavingsAccount also a BankAccount? {is_bank_account}")
+
+
